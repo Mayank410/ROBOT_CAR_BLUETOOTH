@@ -1,106 +1,88 @@
-String readvoice;
-int k=0;
-void setup() {
+int m1a = 9;
+int m1b = 10;
+int m2a = 11;
+int m2b = 12;
+char val;
+
+void setup() 
+{  
+pinMode(m1a, OUTPUT);  // Digital pin 10 set as output Pin
+pinMode(m1b, OUTPUT);  // Digital pin 11 set as output Pin
+pinMode(m2a, OUTPUT);  // Digital pin 12 set as output Pin
+pinMode(m2b, OUTPUT);  // Digital pin 13 set as output Pin
 Serial.begin(9600);
-pinMode(2,OUTPUT);
-pinMode(3,OUTPUT);
-pinMode(4,OUTPUT);
-pinMode(5,OUTPUT);
 }
- 
-void loop() {
-while (Serial.available())
+
+void loop()
 {
-delay(3);
-char c = Serial.read();
-readvoice += c;
-}
- 
-if(readvoice.length() > 0)
-{
-Serial.println(readvoice);
- 
-if(readvoice == "forward")
-{
-digitalWrite(2, HIGH);
-digitalWrite(3, LOW);
-digitalWrite(4, HIGH);
-digitalWrite(5, LOW);
-k=1;
-}
- 
-if(readvoice == "backward")
-{
-digitalWrite(2, LOW);
-digitalWrite(3, HIGH);
-digitalWrite(4, LOW);
-digitalWrite(5, HIGH);
-k=2;
-}
- 
-if(readvoice == "right")
-{
-if (k==2)
-{
-digitalWrite(2, HIGH);
-digitalWrite(3, LOW);
-digitalWrite(4, LOW);
-digitalWrite(5, LOW);
-delay(1000);
-digitalWrite(2, LOW);
-digitalWrite(3, HIGH);
-digitalWrite(4, LOW);
-digitalWrite(5, HIGH);
-}
-else
-{
-digitalWrite(2, HIGH);
-digitalWrite(3, LOW);
-digitalWrite(4, LOW);
-digitalWrite(5, LOW);
-delay(1000);
-digitalWrite(2, HIGH);
-digitalWrite(3, LOW);
-digitalWrite(4, HIGH);
-digitalWrite(5, LOW);
-}
-}
- 
-if(readvoice == "left")
-{
-if (k==2)
-{
-digitalWrite(2, LOW);
-digitalWrite(3, LOW);
-digitalWrite(4, HIGH);
-digitalWrite(5, LOW);
-delay(1000);
-digitalWrite(2, LOW);
-digitalWrite(3, HIGH);
-digitalWrite(4, LOW);
-digitalWrite(5, HIGH);
-}
-else
-{
-digitalWrite(2, LOW);
-digitalWrite(3, LOW);
-digitalWrite(4, HIGH);
-digitalWrite(5, LOW);
-delay(1000);
-digitalWrite(2, HIGH);
-digitalWrite(3, LOW);
-digitalWrite(4, HIGH);
-digitalWrite(5, LOW);
-}
-}
- 
-if(readvoice == "stop")
-{
-digitalWrite(2, LOW);
-digitalWrite(3, LOW);
-digitalWrite(4, LOW);
-digitalWrite(5, LOW);
-}
-}
-readvoice="";
+  while (Serial.available() > 0)
+  {
+  val = Serial.read();
+  Serial.println(val);
+  }
+
+  if( val == 'F') // Forward
+    {
+      digitalWrite(m1a, HIGH);
+      digitalWrite(m1b, LOW);
+      digitalWrite(m2a, HIGH);
+      digitalWrite(m2b, LOW);  
+    }
+  else if(val == 'B') // Backward
+    {
+      digitalWrite(m1a, LOW);
+      digitalWrite(m1b, HIGH);
+      digitalWrite(m2a, LOW);
+      digitalWrite(m2b, HIGH); 
+    }
+  
+    else if(val == 'L') //Left
+    {
+    digitalWrite(m1a, LOW);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, HIGH);
+    digitalWrite(m2b, LOW);
+    }
+    else if(val == 'R') //Right
+    {
+    digitalWrite(m1a, HIGH);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, LOW);
+    digitalWrite(m2b, LOW); 
+    }
+    
+  else if(val == 'S') //Stop
+    {
+    digitalWrite(m1a, LOW);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, LOW);
+    digitalWrite(m2b, LOW); 
+    }
+  else if(val == 'I') //Forward Right
+    {
+    digitalWrite(m1a, HIGH);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, LOW);
+    digitalWrite(m2b, LOW);
+    }
+  else if(val == 'J') //Backward Right
+    {
+    digitalWrite(m1a, LOW);
+    digitalWrite(m1b, HIGH);
+    digitalWrite(m2a, LOW);
+    digitalWrite(m2b, LOW);
+    }
+   else if(val == 'G') //Forward Left
+    {
+    digitalWrite(m1a, LOW);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, HIGH);     digitalWrite(m2b, LOW);
+    }
+  else if(val == 'H') //Backward Left
+    {
+    digitalWrite(m1a, LOW);
+    digitalWrite(m1b, LOW);
+    digitalWrite(m2a, LOW);
+    digitalWrite(m2b, HIGH); 
+    }
 }
